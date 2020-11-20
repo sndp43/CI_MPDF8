@@ -2,7 +2,7 @@
 downloaded and intalled mpdf 8 without composer to location "Codeigniter2/application/libraries/mpdf8"
 
 create library M_pdf.php 
---------------------------
+```
 class M_pdf 
 { 
     function __construct()
@@ -19,10 +19,10 @@ class M_pdf
         return new \Mpdf\Mpdf($param); 
     } 
 }
------------------------------
+```
 
 use in Welcome controller
------------------------------
+```
 $this->load->library('M_pdf');
 		$mpdf = $this->m_pdf->load([
 		   'mode' => 'utf-8',
@@ -33,6 +33,6 @@ $this->load->library('M_pdf');
 
 		$mpdf->WriteHTML($html);
 		$mpdf->Output("abc.pdf","D");
---------------------------------
+```
 
 and you are good to go.Best Luck	
