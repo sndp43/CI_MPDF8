@@ -1,9 +1,38 @@
-# CodeIgniter 2
-Open Source PHP Framework (originally from EllisLab)
+# CodeIgniter 2 PHP 7.3 and MPDF 8
+downloaded and intalled mpdf 8 without composer to location "Codeigniter2/application/libraries/mpdf8"
 
-For more info, please refer to the user-guide at http://www.codeigniter.com/userguide2/  
-(also available within the download package for offline use)
+create library M_pdf.php 
+--------------------------
+class M_pdf 
+{ 
+    function __construct()
+    { 
+        include_once APPPATH.'libraries\mpdf8\vendor\autoload.php'; 
+    } 
+    function pdf()
+    { 
+        $CI = & get_instance(); 
+        log_message('Debug', 'mPDF class is loaded.'); 
+    } 
+    function load($param=[])
+    { 
+        return new \Mpdf\Mpdf($param); 
+    } 
+}
+-----------------------------
 
-**WARNING:** *CodeIgniter 2.x is no longer under development and only receives security patches until October 31st, 2015.
-Please update your installation to the latest CodeIgniter 3.x version available
-(upgrade instructions [here](http://www.codeigniter.com/userguide3/installation/upgrade_300.html)).*
+use in Welcome controller
+-----------------------------
+$this->load->library('M_pdf');
+		$mpdf = $this->m_pdf->load([
+		   'mode' => 'utf-8',
+		   'format' => 'A4'
+		]);
+		$data = [];
+		$html = $this->load->view("table",$data,true);
+
+		$mpdf->WriteHTML($html);
+		$mpdf->Output("abc.pdf","D");
+--------------------------------
+
+and you are good to go.Best Luck	
